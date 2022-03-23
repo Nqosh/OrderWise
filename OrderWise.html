@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+  
+addElements(false);
+
+$('input[type="text"]').on("input", function(){
+    if($('input[type="text"]').val().length >= 40 && $('input[type="text"]').val().length < 1000) {
+        addElements(true);   
+        $("#table").find('input:text').last().focus();
+    }
+});
+
+$("#buttonAdd").click(function () {
+    var div = $(this).closest('div');
+    $("#TextBoxDiv").append('<textarea  id="textArea" style="width:370px;height:100px;" </textarea>')   
+    $("#textArea").val($('input[type="text"]').val());
+});
+
+$("input:button").click(function () {
+    var item = document.getElementById("table");
+        var table = $(this).closest(item);
+        var textbox = table.find('input:text').first()
+        if(textbox.val().length > 0 ) {
+            if (confirm("Are you sure you want to remove?") == true) {
+                table.find('input:text').first().remove();
+            }else {
+                return;
+            }
+        }     
+  });
+
+});
+
+function addElements(booleanValue) {
+    if(booleanValue == true){
+         $("#table").append('<tr><td><label>Line:</label> <input type="text" id="myInput"  maxlength="40" value=""  style="width:300px;background-color:#D3D3D3"/> </td><td><input type="button" class="btnRemove" value="X"/></td></tr>');
+    } else {
+    $("#table").append('<tr><td><label>Line:</label> <input type="text" id="myInput" value="" maxlength="40"  style="width:300px;" /> </td><td><input type="button" class="btnRemove" value="X"/></td></tr>');
+    }
+}
+
+</script>
+</head>
+<body>
+    <div style="background-color:#D3D3D3; width:30%;">
+        <p>Please give your feedback below.</p>
+        <p>Click New Line if you need more space.</p>
+        <p>Click X to remove the current line.</p>
+        <p>Your review must be at least 50 characters, but no more than 1000 characters</p>
+    <table id="table">
+        <tbody>
+           
+        </tbody>
+    </table>
+    <br/>
+     <input type="button" id="buttonAdd" value="New Line" width="100px;" />
+     <div id="TextBoxDiv">
+        <br/>
+     </div>
+    </div>
+</body>
+</html>
+
